@@ -1,6 +1,27 @@
 const fs = require('fs/promises');
 const path = require("path");
-const {nanoid}= require("nanoid");
+const { nanoid } = require("nanoid");
+
+const { model, Schema, } = require('mongoose')
+
+const contactSchema = new Schema(  {
+    name: {
+      type: String,
+      required: [true, 'Set name for contact'],
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+  })
+
+const Contact = model('contact', contactSchema)
 
 const contactsPath = path.join(__dirname, "./contacts.json");
 
@@ -54,4 +75,5 @@ module.exports = {
   removeContact,
   addContact,
   updateContact,
+  Contact
 }
