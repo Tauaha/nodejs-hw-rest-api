@@ -1,9 +1,8 @@
 const mongoose = require("mongoose")
 
 const app = require('./app')
-const MONGO_URL = process.env
 
-mongoose.set("strictQuery", true);
+const {MONGO_URL} = process.env
 
 mongoose.connect(MONGO_URL)
   .then(() => {
