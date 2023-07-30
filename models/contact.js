@@ -1,5 +1,5 @@
 const { model, Schema, } = require('mongoose')
-
+const Joi = require("joi")
 const {mongooseError} = require("../helpers")
 
 const contactSchema = new Schema(  {
@@ -16,7 +16,11 @@ const contactSchema = new Schema(  {
     favorite: {
       type: Boolean,
       default: false,
-    },
+  },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    }
 })
   
 contactSchema.post('save', mongooseError)
@@ -25,4 +29,20 @@ const Contact = model('contact', contactSchema)
 
 
 
-module.exports = Contact
+const addSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  phone: Joi.number().required(),
+  favorite: Joi.boolean(),
+})
+
+const updateFavoriteSchema = Joi.object({
+    favorite: Joi.boolean().required(),
+})
+
+const schemas = {
+  addSchema,
+  updateFavoriteSchema,
+};
+
+module.exports = {Contact, schemas}
