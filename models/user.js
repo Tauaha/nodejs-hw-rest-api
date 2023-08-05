@@ -19,10 +19,14 @@ const userSchema = new Schema(  {
     enum: ["starter", "pro", "business"],
     default: "starter"
   },
-      token: {
-      type: String,
-      default: null,
-    },
+  token: {
+    type: String,
+    default: null,
+  },
+  avatarURL: {
+    type: String,
+    required: true
+   }   
 })
   
 userSchema.post('save', mongooseError)
